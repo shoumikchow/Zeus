@@ -3,13 +3,19 @@ package shoumik.com.zeus;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
+import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -17,8 +23,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     String TAG="ShoumiksTAG";
     Double l1;
     Double l2;
-    String coord1;
-    String coord2;
+    Double lat;
+    Double lon;
+    String wthr;
 
 
     @Override
@@ -37,10 +44,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+        getAllData();
+
+
+//TODO:        mMap.addMarker(new MarkerOptions().position(new LatLng(lat, lon)).title(wthr));
+
+
         mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
             @Override
             public void onMapLongClick(LatLng latLng) {
-                mMap.addMarker(new MarkerOptions().position(latLng).title("Marker placed at " + latLng.toString()));
+
 
                 l1=latLng.latitude;
                 l2=latLng.longitude;
@@ -54,10 +67,32 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
+    }
 
 
+    public void getAllData(){
+
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Nowcast");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> markers, ParseException e) {
+                if (e == null) {
+
+
+                    for (ParseObject pObject : markers){
+                        Log.d(TAG,"latitude is "+pObject.getDouble("latitude"));
+                        Log.d(TAG, "longitude is "+pObject.getDouble("longitude"));
+                        Log.d(TAG, "weather is "+pObject.getString("Weather"));
+                    }
+
+
+                } else {
+                    // handle Parse Exception here
+                }
+            }
+        });
 
     }
+
 
 
 }
