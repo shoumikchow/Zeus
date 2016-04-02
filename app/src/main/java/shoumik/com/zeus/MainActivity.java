@@ -30,13 +30,11 @@ public class MainActivity extends AppCompatActivity {
     String TAG = "ShoumiksTAG";
     int id;
     int sunset;
-    TextView tvMax;
-    TextView tvMin;
+    TextView tvTemp;
     TextView tvLocation;
     ImageView imageView;
     ListView weatherList;
-    Double tvMaxDbl;
-    Double tvMinDbl;
+    double tvDbl;
     LinearLayout descLay;
     LinearLayout listLay;
     //Picasso.with(getApplicationContext()).load(gitmodel.getAvatarUrl()).into(imageView);
@@ -47,9 +45,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        tvMax = (TextView) findViewById(R.id.tvMax);
-        tvMin = (TextView) findViewById(R.id.tvMin);
+        tvTemp= (TextView) findViewById(R.id.tvTemp);
         tvLocation = (TextView) findViewById(R.id.tvLocation);
         weatherList = (ListView) findViewById(R.id.weatherList);
         imageView = (ImageView) findViewById(R.id.imageView);
@@ -92,13 +88,11 @@ public class MainActivity extends AppCompatActivity {
 
                 id = openWeatherCurrentModel.getWeather()[0].getId();
                 sunset = openWeatherCurrentModel.getSys().getSunset();
-                tvMaxDbl = openWeatherCurrentModel.getMain().getTemp_max();
-                tvMinDbl = openWeatherCurrentModel.getMain().getTemp_min();
-                tvMaxDbl = round(tvMaxDbl, 1);
-                tvMinDbl = round(tvMinDbl, 1);
+                tvDbl = openWeatherCurrentModel.getMain().getTemp();
+                tvDbl = round(tvDbl, 1);
 
-                tvMax.setText(tvMaxDbl.toString() + " °C");
-                tvMin.setText(tvMinDbl.toString() + " °C");
+                tvTemp.setText(tvDbl + " °C");
+
 
 //                if (sunset>System.currentTimeMillis()){
 //

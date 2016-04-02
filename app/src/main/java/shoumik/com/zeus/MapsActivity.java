@@ -10,6 +10,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -21,10 +22,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     String TAG="ShoumiksTAG";
-    Double l1;
-    Double l2;
-    Double lat;
-    Double lon;
+    double l1;
+    double l2;
+    double lat;
+    double lon;
     String wthr;
 
 
@@ -45,9 +46,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         getAllData();
-
-
-//TODO:        mMap.addMarker(new MarkerOptions().position(new LatLng(lat, lon)).title(wthr));
 
 
         mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
@@ -82,6 +80,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         Log.d(TAG,"latitude is "+pObject.getDouble("latitude"));
                         Log.d(TAG, "longitude is "+pObject.getDouble("longitude"));
                         Log.d(TAG, "weather is "+pObject.getString("Weather"));
+
+                        mMap.addMarker(new MarkerOptions().position(new LatLng(pObject.getDouble("latitude"),
+                                pObject.getDouble("longitude"))).title(pObject.getString("Weather")));
                     }
 
 

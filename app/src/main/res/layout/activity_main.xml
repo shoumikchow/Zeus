@@ -33,18 +33,8 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Max"
-                android:id="@+id/tvMax"
-                android:gravity="center"
-                android:textColor="#FFFFFF"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Min"
-                android:id="@+id/tvMin"
+                android:text="Temperature"
+                android:id="@+id/tvTemp"
                 android:gravity="center"
                 android:textColor="#FFFFFF"/>
 

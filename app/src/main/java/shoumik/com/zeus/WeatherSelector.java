@@ -16,8 +16,8 @@ public class WeatherSelector extends AppCompatActivity {
     String TAG="ShoumiksTAG";
     ParseObject nowcast = new ParseObject("Nowcast");
     LatLng latLng;
-    Double lat;
-    Double lon;
+    double lat;
+    double lon;
     ImageButton sunButton;
     ImageButton rainButton;
     ImageButton stormButton;
