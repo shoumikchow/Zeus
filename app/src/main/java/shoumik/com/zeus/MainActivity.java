@@ -36,18 +36,18 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         GoogleApiClient.OnConnectionFailedListener,LocationListener {
 
     String API = "http://api.openweathermap.org";
-    String city = "Dhaka";
     String units = "metric";
     String TAG = "ShoumiksTAG";
     int id;
     int sunset;
     TextView tvTemp;
-    TextView tvLocation;
     ImageView imageView;
     ListView weatherList;
+    //TextView tvLocation;
     double tvDbl;
     double lat;
     double lon;
+
     LinearLayout descLay;
     LinearLayout listLay;
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 1000;
@@ -69,10 +69,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         tvTemp= (TextView) findViewById(R.id.tvTemp);
-        tvLocation = (TextView) findViewById(R.id.tvLocation);
         weatherList = (ListView) findViewById(R.id.weatherList);
         imageView = (ImageView) findViewById(R.id.imageView);
-
+        //tvLocation=(TextView)findViewById(R.id.tvLocation);
         descLay=(LinearLayout)findViewById(R.id.descLay);
         listLay=(LinearLayout)findViewById(R.id.listLay);
 
@@ -86,14 +85,18 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         getLocation();
 
 
+//        Geocoder gcd = new Geocoder(getBaseContext(), Locale.getDefault());
+//        List<Address> addresses = null;
+//        try {
+//            addresses = gcd.getFromLocation(lat, lon, 1);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        if (addresses.size() > 0)
+//            Log.d(TAG,"locality is "+addresses.get(0).getLocality());
+            //tvLocation.setText(addresses.get(0).getLocality());
 
 
-//        SharedPreferences preferences=this.getSharedPreferences("sp",MODE_PRIVATE);
-//        city=preferences.getString("location", null);
-//        units=preferences.getString("unit",null);
-
-
-        tvLocation.setText(city);
         RestAdapter restAdapter = new RestAdapter.Builder().setEndpoint(API).build();
         OWMApi owmApi = restAdapter.create(OWMApi.class);
 
@@ -101,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
 
 
-        owmApi.getForecast(city, units, new Callback<OpenWeatherMapModel>() {
+        owmApi.getForecast(String.valueOf(lat),String.valueOf(lon), units, new Callback<OpenWeatherMapModel>() {
             @Override
             public void success(OpenWeatherMapModel openWeatherMapModel, Response response) {
                 weatherListAdapter = new WeatherListAdapter(MainActivity.this, openWeatherMapModel);
@@ -115,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         });
 
 
-        owmApi.getCurrent(city, units, new Callback<OpenWeatherCurrentModel>() {
+        owmApi.getCurrent(String.valueOf(lat),String.valueOf(lon), units, new Callback<OpenWeatherCurrentModel>() {
             @Override
             public void success(OpenWeatherCurrentModel openWeatherCurrentModel, Response response) {
 
@@ -165,6 +168,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         if (mLastLocation != null) {
             lat= mLastLocation.getLatitude();
             lon= mLastLocation.getLongitude();
+
+
 
             Log.d(TAG,"latitude is: "+lat+" longitude is: "+lon);
 

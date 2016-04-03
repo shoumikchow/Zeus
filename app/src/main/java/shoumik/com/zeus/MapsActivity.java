@@ -57,7 +57,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat,lon), 10));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat,lon), 12));
         getAllParseData();
 
 
@@ -77,13 +77,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     e.printStackTrace();
                 }
                 if (addresses.size() > 0)
-                    Log.d(TAG,"locality is "+addresses.get(0).getLocality());
+                    Log.d(TAG,"locality is "+addresses.get(0).getSubLocality());
 
 
                 Intent i = new Intent(MapsActivity.this, WeatherSelector.class);
                 i.putExtra("latCoord", l1);
                 i.putExtra("lonCoord", l2);
-                i.putExtra("nameLocation",addresses.get(0).getLocality());
+                i.putExtra("nameLocation",addresses.get(0).getSubLocality());
                 startActivity(i);
 
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
@@ -95,7 +95,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void getAllParseData(){
 
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Nowcast");
-        query.findInBackground(new FindCallback<ParseObject>() {
+        query.orderByDescending("latitude").findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> markers, ParseException e) {
                 if (e == null) {
 
@@ -105,13 +105,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                     for (ParseObject pObject : markers) {
 
-                        parseLat=pObject.getDouble("latitude");
-                        parseLon=pObject.getDouble("longitude");
-                        parseWeather=pObject.getString("Weather");
+                        parseLat = pObject.getDouble("latitude");
+                        parseLon = pObject.getDouble("longitude");
+                        parseWeather = pObject.getString("Weather");
+                        Log.d(TAG, ""+pObject.getDouble("latitude"));
 
-                        mMap.addMarker(new MarkerOptions().position(new LatLng(parseLat,parseLon))
+                        mMap.addMarker(new MarkerOptions().position(new LatLng(parseLat, parseLon))
                                 .title(parseWeather));
-
 
 
                     }

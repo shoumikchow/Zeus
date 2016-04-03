@@ -20,7 +20,6 @@ public class WeatherSelector extends AppCompatActivity {
 
     String TAG="ShoumiksTAG";
     ParseObject nowcast = new ParseObject("Nowcast");
-    LatLng latLng;
     double lat;
     double lon;
     double generalLatitude;
@@ -54,13 +53,12 @@ public class WeatherSelector extends AppCompatActivity {
         generalLatitude=getLocationFromAddress(getApplicationContext(),locationName).latitude;
         generalLongitude=getLocationFromAddress(getApplicationContext(),locationName).longitude;
 
-        Log.d(TAG, "in weatherselector lat= "+locationName);
+        Log.d(TAG, "in weatherselector location= "+locationName);
         Log.d(TAG,"in weatherselector lat= "+lat);
         Log.d(TAG,"in weatherselector lon= "+lon);
 
-        Log.d(TAG,"in weaetherselector GeneralLat="+generalLatitude);
-        Log.d(TAG,"in weaetherselector GeneralLon="+generalLongitude);
-      //  Log.d(TAG,"in weatherselector"+latLngStr);
+        Log.d(TAG,"in weatherselector GeneralLat="+generalLatitude);
+        Log.d(TAG,"in weatherselector GeneralLon="+generalLongitude);
 
         sunButton.setOnClickListener(new View.OnClickListener() {
             @Override

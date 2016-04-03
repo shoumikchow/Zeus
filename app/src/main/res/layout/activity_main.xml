@@ -20,13 +20,13 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Location"
-                android:id="@+id/tvLocation"
-                android:textColor="#FFFFFF"/>
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
+                <!--android:text="Location"-->
+                <!--android:id="@+id/tvLocation"-->
+                <!--android:textColor="#FFFFFF"/>-->
 
             <TextView
                 android:layout_width="match_parent"

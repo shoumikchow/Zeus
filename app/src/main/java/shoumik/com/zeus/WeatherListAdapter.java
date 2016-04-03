@@ -18,7 +18,8 @@ public class WeatherListAdapter extends BaseAdapter {
     private OpenWeatherMapModel openWeatherMapModel;
     private LayoutInflater inflater;
     TextView tvWeather;
-    Double tempInCelsius;
+    double tempMax;
+    double tempMin;
     String dt_text = "";
     String TAG = "ShoumiksTAG";
 
@@ -48,10 +49,12 @@ public class WeatherListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View single_row = inflater.inflate(R.layout.single_row, null);
         tvWeather = (TextView) single_row.findViewById(R.id.tvWeather);
-        tempInCelsius = getItem(position).getMain().getTemp();
-        tempInCelsius = round(tempInCelsius, 1);
+        tempMax = getItem(position).getMain().getTemp_max();
+        tempMin = getItem(position).getMain().getTemp_min();
+        tempMax= round(tempMax, 1);
+        tempMin= round(tempMin, 1);
         dt_text = getItem(position).getDt_txt();
-        tvWeather.setText(dt_text + " - " + tempInCelsius.toString() + " °C");
+        tvWeather.setText(dt_text + " - " + tempMax + " °C"+" / " + tempMin +  " °C");
 
         return single_row;
     }

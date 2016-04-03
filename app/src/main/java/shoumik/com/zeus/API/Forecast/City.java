@@ -7,7 +7,6 @@ public class City {
 
 
     private String name;
-    private Coord coord;
     private String country;
 
     public String getName() {
@@ -18,13 +17,6 @@ public class City {
         this.name = name;
     }
 
-    public Coord getCoord() {
-        return coord;
-    }
-
-    public void setCoord(Coord coord) {
-        this.coord = coord;
-    }
 
     public String getCountry() {
         return country;

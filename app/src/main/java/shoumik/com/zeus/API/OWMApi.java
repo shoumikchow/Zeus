@@ -13,8 +13,8 @@ public interface OWMApi {
 
 
     @GET("/data/2.5/forecast?appid=12d9525d7795c0762bb07cc5469d2716")
-    public void getForecast(@Query("q") String q, @Query("units") String units, Callback<OpenWeatherMapModel> response);
+    public void getForecast(@Query("lat") String lat,@Query("lon") String lon, @Query("units") String units, Callback<OpenWeatherMapModel> response);
 
     @GET("/data/2.5/weather?appid=12d9525d7795c0762bb07cc5469d2716")
-    public void getCurrent(@Query("q") String q,@Query("units") String units, Callback<OpenWeatherCurrentModel> reply);
+    public void getCurrent(@Query("lat") String lat,@Query("lon") String lon, @Query("units") String units, Callback<OpenWeatherCurrentModel> reply);
 }
