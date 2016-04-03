@@ -1,6 +1,9 @@
 package shoumik.com.zeus;
 
+import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -11,6 +14,8 @@ import android.widget.Toast;
 import com.google.android.gms.maps.model.LatLng;
 import com.parse.ParseObject;
 
+import java.util.List;
+
 public class WeatherSelector extends AppCompatActivity {
 
     String TAG="ShoumiksTAG";
@@ -18,6 +23,9 @@ public class WeatherSelector extends AppCompatActivity {
     LatLng latLng;
     double lat;
     double lon;
+    double generalLatitude;
+    double generalLongitude;
+    String locationName;
     ImageButton sunButton;
     ImageButton rainButton;
     ImageButton stormButton;
@@ -38,11 +46,20 @@ public class WeatherSelector extends AppCompatActivity {
         fogButton = (ImageButton) findViewById(R.id.fogButton);
         snowButton = (ImageButton) findViewById(R.id.snowButton);
 
-        lat=getIntent().getDoubleExtra("latCoord",0);
+
+        locationName=getIntent().getStringExtra("nameLocation");
+        lat=getIntent().getDoubleExtra("latCoord", 0);
         lon=getIntent().getDoubleExtra("lonCoord", 0);
 
+        generalLatitude=getLocationFromAddress(getApplicationContext(),locationName).latitude;
+        generalLongitude=getLocationFromAddress(getApplicationContext(),locationName).longitude;
+
+        Log.d(TAG, "in weatherselector lat= "+locationName);
         Log.d(TAG,"in weatherselector lat= "+lat);
         Log.d(TAG,"in weatherselector lon= "+lon);
+
+        Log.d(TAG,"in weaetherselector GeneralLat="+generalLatitude);
+        Log.d(TAG,"in weaetherselector GeneralLon="+generalLongitude);
       //  Log.d(TAG,"in weatherselector"+latLngStr);
 
         sunButton.setOnClickListener(new View.OnClickListener() {
@@ -50,8 +67,8 @@ public class WeatherSelector extends AppCompatActivity {
             public void onClick(View v) {
 
                 //nowcast.put("Location", latLngStr);
-                nowcast.put("latitude",lat);
-                nowcast.put("longitude",lon);
+                nowcast.put("latitude",generalLatitude);
+                nowcast.put("longitude",generalLongitude);
                 nowcast.put("Weather", "Sunny");
                 nowcast.saveInBackground();
                 startActivity(i);
@@ -64,8 +81,8 @@ public class WeatherSelector extends AppCompatActivity {
             public void onClick(View v) {
 
                 //nowcast.put("Location", latLngStr);
-                nowcast.put("latitude",lat);
-                nowcast.put("longitude",lon);
+                nowcast.put("latitude",generalLatitude);
+                nowcast.put("longitude",generalLongitude);
                 nowcast.put("Weather","Rainy");
                 nowcast.saveInBackground();
                 startActivity(i);
@@ -78,8 +95,8 @@ public class WeatherSelector extends AppCompatActivity {
             public void onClick(View v) {
 
                 //nowcast.put("Location", latLngStr);
-                nowcast.put("latitude",lat);
-                nowcast.put("longitude",lon);
+                nowcast.put("latitude",generalLatitude);
+                nowcast.put("longitude",generalLongitude);
                 nowcast.put("Weather","Stormy");
                 nowcast.saveInBackground();
                 startActivity(i);
@@ -92,8 +109,8 @@ public class WeatherSelector extends AppCompatActivity {
             public void onClick(View v) {
 
                 //nowcast.put("Location", latLngStr);
-                nowcast.put("latitude",lat);
-                nowcast.put("longitude",lon);
+                nowcast.put("latitude",generalLatitude);
+                nowcast.put("longitude",generalLongitude);
                 nowcast.put("Weather","Cloudy");
                 nowcast.saveInBackground();
                 startActivity(i);
@@ -106,8 +123,8 @@ public class WeatherSelector extends AppCompatActivity {
             public void onClick(View v) {
 
                 //nowcast.put("Location", latLngStr);
-                nowcast.put("latitude",lat);
-                nowcast.put("longitude",lon);
+                nowcast.put("latitude",generalLatitude);
+                nowcast.put("longitude",generalLongitude);
                 nowcast.put("Weather","Foggy");
                 nowcast.saveInBackground();
                 startActivity(i);
@@ -120,8 +137,8 @@ public class WeatherSelector extends AppCompatActivity {
             public void onClick(View v) {
 
                 //nowcast.put("Location", latLngStr);
-                nowcast.put("latitude",lat);
-                nowcast.put("longitude",lon);
+                nowcast.put("latitude",generalLatitude);
+                nowcast.put("longitude",generalLongitude);
                 nowcast.put("Weather", "Snowy");
                 nowcast.saveInBackground();
                 startActivity(i);
@@ -129,6 +146,32 @@ public class WeatherSelector extends AppCompatActivity {
             }
         });
 
+    }
+
+
+    public LatLng getLocationFromAddress(Context context,String strAddress) {
+
+        Geocoder coder = new Geocoder(context);
+        List<Address> address;
+        LatLng p1 = null;
+
+        try {
+            address = coder.getFromLocationName(strAddress,5);
+            if (address == null) {
+                return null;
+            }
+            Address location = address.get(0);
+            location.getLatitude();
+            location.getLongitude();
+
+            p1 = new LatLng(location.getLatitude(), location.getLongitude() );
+
+        } catch (Exception ex) {
+
+            ex.printStackTrace();
+        }
+
+        return p1;
     }
 
 
