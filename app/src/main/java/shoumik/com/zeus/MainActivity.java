@@ -71,7 +71,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         tvTemp= (TextView) findViewById(R.id.tvTemp);
         weatherList = (ListView) findViewById(R.id.weatherList);
         imageView = (ImageView) findViewById(R.id.imageView);
-        //tvLocation=(TextView)findViewById(R.id.tvLocation);
         descLay=(LinearLayout)findViewById(R.id.descLay);
         listLay=(LinearLayout)findViewById(R.id.listLay);
 
@@ -85,24 +84,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         getLocation();
 
 
-//        Geocoder gcd = new Geocoder(getBaseContext(), Locale.getDefault());
-//        List<Address> addresses = null;
-//        try {
-//            addresses = gcd.getFromLocation(lat, lon, 1);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        if (addresses.size() > 0)
-//            Log.d(TAG,"locality is "+addresses.get(0).getLocality());
-            //tvLocation.setText(addresses.get(0).getLocality());
-
-
         RestAdapter restAdapter = new RestAdapter.Builder().setEndpoint(API).build();
         OWMApi owmApi = restAdapter.create(OWMApi.class);
-
-
-
-
 
         owmApi.getForecast(String.valueOf(lat),String.valueOf(lon), units, new Callback<OpenWeatherMapModel>() {
             @Override
@@ -128,12 +111,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 tvDbl = round(tvDbl, 1);
 
                 tvTemp.setText(tvDbl + " °C");
-
-
-//                if (sunset>System.currentTimeMillis()){
-//
-//                    descLay.setBackgroundColor(Color.parseColor("#FFFFFF"));
-//                }
 
                 imageSelector();
 

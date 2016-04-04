@@ -6,7 +6,6 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -45,29 +44,20 @@ public class WeatherSelector extends AppCompatActivity {
         fogButton = (ImageButton) findViewById(R.id.fogButton);
         snowButton = (ImageButton) findViewById(R.id.snowButton);
 
-
         locationName=getIntent().getStringExtra("nameLocation");
-        lat=getIntent().getDoubleExtra("latCoord", 0);
-        lon=getIntent().getDoubleExtra("lonCoord", 0);
-
         generalLatitude=getLocationFromAddress(getApplicationContext(),locationName).latitude;
         generalLongitude=getLocationFromAddress(getApplicationContext(),locationName).longitude;
 
-        Log.d(TAG, "in weatherselector location= "+locationName);
-        Log.d(TAG,"in weatherselector lat= "+lat);
-        Log.d(TAG,"in weatherselector lon= "+lon);
-
-        Log.d(TAG,"in weatherselector GeneralLat="+generalLatitude);
-        Log.d(TAG,"in weatherselector GeneralLon="+generalLongitude);
 
         sunButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                //nowcast.put("Location", latLngStr);
+
                 nowcast.put("latitude",generalLatitude);
                 nowcast.put("longitude",generalLongitude);
                 nowcast.put("Weather", "Sunny");
+                nowcast.put("Location",locationName);
                 nowcast.saveInBackground();
                 startActivity(i);
                 Toast.makeText(getApplicationContext(), "Nowcast data saved!", Toast.LENGTH_LONG).show();
@@ -82,6 +72,7 @@ public class WeatherSelector extends AppCompatActivity {
                 nowcast.put("latitude",generalLatitude);
                 nowcast.put("longitude",generalLongitude);
                 nowcast.put("Weather","Rainy");
+                nowcast.put("Location",locationName);
                 nowcast.saveInBackground();
                 startActivity(i);
                 Toast.makeText(getApplicationContext(), "Nowcast data saved!",Toast.LENGTH_LONG).show();
@@ -96,6 +87,7 @@ public class WeatherSelector extends AppCompatActivity {
                 nowcast.put("latitude",generalLatitude);
                 nowcast.put("longitude",generalLongitude);
                 nowcast.put("Weather","Stormy");
+                nowcast.put("Location",locationName);
                 nowcast.saveInBackground();
                 startActivity(i);
                 Toast.makeText(getApplicationContext(), "Nowcast data saved!",Toast.LENGTH_LONG).show();
@@ -110,6 +102,7 @@ public class WeatherSelector extends AppCompatActivity {
                 nowcast.put("latitude",generalLatitude);
                 nowcast.put("longitude",generalLongitude);
                 nowcast.put("Weather","Cloudy");
+                nowcast.put("Location",locationName);
                 nowcast.saveInBackground();
                 startActivity(i);
                 Toast.makeText(getApplicationContext(), "Nowcast data saved!",Toast.LENGTH_LONG).show();
@@ -124,6 +117,7 @@ public class WeatherSelector extends AppCompatActivity {
                 nowcast.put("latitude",generalLatitude);
                 nowcast.put("longitude",generalLongitude);
                 nowcast.put("Weather","Foggy");
+                nowcast.put("Location",locationName);
                 nowcast.saveInBackground();
                 startActivity(i);
                 Toast.makeText(getApplicationContext(), "Nowcast data saved!",Toast.LENGTH_LONG).show();
@@ -138,6 +132,7 @@ public class WeatherSelector extends AppCompatActivity {
                 nowcast.put("latitude",generalLatitude);
                 nowcast.put("longitude",generalLongitude);
                 nowcast.put("Weather", "Snowy");
+                nowcast.put("Location",locationName);
                 nowcast.saveInBackground();
                 startActivity(i);
                 Toast.makeText(getApplicationContext(), "Nowcast data saved!", Toast.LENGTH_LONG).show();
