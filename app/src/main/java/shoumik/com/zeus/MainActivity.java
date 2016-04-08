@@ -130,13 +130,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private void getLocation() {
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return;
         }
         mLastLocation = LocationServices.FusedLocationApi
@@ -148,11 +141,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
 
 
-            Log.d(TAG,"latitude is: "+lat+" longitude is: "+lon);
-
         } else {
 
-            Log.d(TAG,"Couldn't get the location. Make sure location is enabled on the device");
         }
     }
 
@@ -317,9 +307,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
 
 
-    /**
-     * Google api callback methods
-     */
+
+//     Google api callback methods
+
     @Override
     public void onConnectionFailed(ConnectionResult result) {
         Log.d(TAG, "Connection failed: ConnectionResult.getErrorCode() = "
@@ -343,11 +333,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     public void onLocationChanged(Location location) {
         // Assign the new location
         mLastLocation = location;
-
-        Toast.makeText(getApplicationContext(), "Location changed!",
-                Toast.LENGTH_SHORT).show();
-
-        // Displaying the new location on UI
         getLocation();
     }
 

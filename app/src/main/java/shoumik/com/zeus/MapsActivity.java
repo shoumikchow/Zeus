@@ -136,21 +136,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         total++;
 
                         //to deal with the last entry if it is single entry
-                        lastTot = total;
-                        lastLoc = location_tag;
-                        lastLat = pObject.getDouble("latitude");
-                        lastLon = pObject.getDouble("longitude");
-                        lastWthr = pObject.getString("Weather");
+//                        lastTot = total;
+//                        lastLoc = location_tag;
+//                        lastLat = pObject.getDouble("latitude");
+//                        lastLon = pObject.getDouble("longitude");
+//                        lastWthr = pObject.getString("Weather");
 
 
 
                     }
                     //last single entry
-                    Log.d(TAG,"location is "+location_tag + " total is "+lastTot + " Weather is "+lastWthr+" latitude is "
-                    + lastLat+ " longitude is "+lastLon);
-                    mMap.addMarker(new MarkerOptions().position(new LatLng(lastLat, lastLon))
-                            .title("100% " + lastWthr + " at " + location_tag));
-
+//                    Log.d(TAG,"location is "+location_tag + " total is "+lastTot + " Weather is "+lastWthr+" latitude is "
+//                    + lastLat+ " longitude is "+lastLon);
+//                    mMap.addMarker(new MarkerOptions().position(new LatLng(lastLat, lastLon))
+//                            .title("100% " + lastWthr + " at " + location_tag));
+                    Log.d(TAG, "location is "+ location_tag+" total is "+ total +" and map is "+map);
+              calcPercentage(total,map,location_tag);
 
                 } else {
                     // handle Parse Exception here
@@ -191,6 +192,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mMap.addMarker(new MarkerOptions().position(new LatLng(latMarker, lonMarker))
                 .title(output + "at " + loc));
+
+//        mMap.
 
     }
 

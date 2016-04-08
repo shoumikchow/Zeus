@@ -68,7 +68,7 @@ public class WeatherSelector extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                //nowcast.put("Location", latLngStr);
+
                 nowcast.put("latitude",generalLatitude);
                 nowcast.put("longitude",generalLongitude);
                 nowcast.put("Weather","Rainy");
@@ -83,7 +83,7 @@ public class WeatherSelector extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                //nowcast.put("Location", latLngStr);
+
                 nowcast.put("latitude",generalLatitude);
                 nowcast.put("longitude",generalLongitude);
                 nowcast.put("Weather","Stormy");
@@ -98,7 +98,7 @@ public class WeatherSelector extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                //nowcast.put("Location", latLngStr);
+
                 nowcast.put("latitude",generalLatitude);
                 nowcast.put("longitude",generalLongitude);
                 nowcast.put("Weather","Cloudy");
@@ -113,7 +113,7 @@ public class WeatherSelector extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                //nowcast.put("Location", latLngStr);
+
                 nowcast.put("latitude",generalLatitude);
                 nowcast.put("longitude",generalLongitude);
                 nowcast.put("Weather","Foggy");
@@ -128,7 +128,7 @@ public class WeatherSelector extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                //nowcast.put("Location", latLngStr);
+
                 nowcast.put("latitude",generalLatitude);
                 nowcast.put("longitude",generalLongitude);
                 nowcast.put("Weather", "Snowy");
@@ -149,7 +149,7 @@ public class WeatherSelector extends AppCompatActivity {
         LatLng p1 = null;
 
         try {
-            address = coder.getFromLocationName(strAddress,5);
+            address = coder.getFromLocationName(strAddress, 5);
             if (address == null) {
                 return null;
             }
