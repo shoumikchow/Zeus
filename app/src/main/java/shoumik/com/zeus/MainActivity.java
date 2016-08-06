@@ -3,6 +3,7 @@ package shoumik.com.zeus;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
@@ -33,7 +34,7 @@ import shoumik.com.zeus.API.Forecast.OpenWeatherMapModel;
 import shoumik.com.zeus.API.OWMApi;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener,LocationListener {
+        GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     String API = "http://api.openweathermap.org";
     String units = "metric";
@@ -68,11 +69,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tvTemp= (TextView) findViewById(R.id.tvTemp);
+        tvTemp = (TextView) findViewById(R.id.tvTemp);
         weatherList = (ListView) findViewById(R.id.weatherList);
         imageView = (ImageView) findViewById(R.id.imageView);
-        descLay=(LinearLayout)findViewById(R.id.descLay);
-        listLay=(LinearLayout)findViewById(R.id.listLay);
+        descLay = (LinearLayout) findViewById(R.id.descLay);
+        listLay = (LinearLayout) findViewById(R.id.listLay);
 
         if (checkPlayServices()) {
 
@@ -87,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         RestAdapter restAdapter = new RestAdapter.Builder().setEndpoint(API).build();
         OWMApi owmApi = restAdapter.create(OWMApi.class);
 
-        owmApi.getForecast(String.valueOf(lat),String.valueOf(lon), units, new Callback<OpenWeatherMapModel>() {
+        owmApi.getForecast(String.valueOf(lat), String.valueOf(lon), units, new Callback<OpenWeatherMapModel>() {
             @Override
             public void success(OpenWeatherMapModel openWeatherMapModel, Response response) {
                 weatherListAdapter = new WeatherListAdapter(MainActivity.this, openWeatherMapModel);
@@ -101,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         });
 
 
-        owmApi.getCurrent(String.valueOf(lat),String.valueOf(lon), units, new Callback<OpenWeatherCurrentModel>() {
+        owmApi.getCurrent(String.valueOf(lat), String.valueOf(lon), units, new Callback<OpenWeatherCurrentModel>() {
             @Override
             public void success(OpenWeatherCurrentModel openWeatherCurrentModel, Response response) {
 
@@ -109,6 +110,19 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 sunset = openWeatherCurrentModel.getSys().getSunset();
                 tvDbl = openWeatherCurrentModel.getMain().getTemp();
                 tvDbl = round(tvDbl, 1);
+
+                if (sunset > System.currentTimeMillis()) {                 //DAY
+                    descLay.setBackgroundColor(Color.parseColor("#9e9e9e")); //black
+                    listLay.setBackgroundColor(Color.parseColor("#eeeeee")); //white
+                    tvTemp.setTextColor(Color.parseColor("#ffffff"));
+
+                }
+                else{
+                    descLay.setBackgroundColor(Color.parseColor("#eeeeee"));
+                    listLay.setBackgroundColor(Color.parseColor("#9e9e9e"));
+                    tvTemp.setTextColor(Color.parseColor("#000000"));
+                }
+
 
                 tvTemp.setText(tvDbl + " °C");
 
@@ -136,9 +150,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 .getLastLocation(mGoogleApiClient);
 
         if (mLastLocation != null) {
-            lat= mLastLocation.getLatitude();
-            lon= mLastLocation.getLongitude();
-
+            lat = mLastLocation.getLatitude();
+            lon = mLastLocation.getLongitude();
 
 
         } else {
@@ -190,8 +203,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         switch (item.getItemId()) {
             case R.id.action_maps:
-                Intent i=new Intent(this,MapsActivity.class);
-                i.putExtra("locationLat",lat);
+                Intent i = new Intent(this, MapsActivity.class);
+                i.putExtra("locationLat", lat);
                 i.putExtra("locationLon", lon);
                 startActivity(i);
                 break;
@@ -210,7 +223,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private void imageSelector() {
 
         if (sunset > System.currentTimeMillis()) {                 //sun hasn't set (DAY)
-
 
 
             if (id >= 200 && id <= 232) {
@@ -275,7 +287,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     /**
      * Creating location request object
-     * */
+     */
     protected void createLocationRequest() {
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(UPDATE_INTERVAL);
@@ -286,7 +298,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     /**
      * Method to verify google play services on the device
-     * */
+     */
     private boolean checkPlayServices() {
         int resultCode = GooglePlayServicesUtil
                 .isGooglePlayServicesAvailable(this);
@@ -304,8 +316,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         }
         return true;
     }
-
-
 
 
 //     Google api callback methods

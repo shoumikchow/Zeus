@@ -22,6 +22,7 @@ public class WeatherListAdapter extends BaseAdapter {
     double tempMin;
     String dt_text = "";
     String TAG = "ShoumiksTAG";
+    int sunset;
 
     public WeatherListAdapter(Context context, OpenWeatherMapModel openWeatherMapModel) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -55,6 +56,7 @@ public class WeatherListAdapter extends BaseAdapter {
         tempMin= round(tempMin, 1);
         dt_text = getItem(position).getDt_txt();
         tvWeather.setText(dt_text + " - " + tempMax + " °C"+" / " + tempMin +  " °C");
+
 
         return single_row;
     }
