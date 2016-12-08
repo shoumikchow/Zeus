@@ -1,7 +1,7 @@
 # Zeus
 
 
-This was made as part of my CSE491 (Mobile Programming) course in Brac University in Spring 2016.
+This was made as part of my CSE491 (Mobile Programming) course in Brac University in Spring 2016 but I've made a lot of changes since then.
 
 This is a crowdsourced weather app, named Zeus, which takes normal weather forecast from the OpenWeather Map API. This is a regular weather forecast, which gives weather forecast of the next 5 days on 3 hour intervals. The forecast is shown in a ListView. The current weather condition is shown on top of the ListView along with the conditions.
 
